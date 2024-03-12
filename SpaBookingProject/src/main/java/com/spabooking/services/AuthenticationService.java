@@ -9,10 +9,10 @@ import com.spabooking.entities.User;
 
 public interface AuthenticationService {
 	User signupCustomer(SignUpRequest signUpRequest);
-	
-	 User signupEmployee(SignUpEmployeeReq signUpEmployeeReq);
-	
+
+	User signupEmployee(SignUpEmployeeReq signUpEmployeeReq);
+
 	JwtAuthenticationResponse signin(SignInRequest signInRequest);
-	
-	JwtAuthenticationResponse refreshToken(RefreshTokenRequest refreshTokenRequest); 
+
+	JwtAuthenticationResponse refreshToken(RefreshTokenRequest refreshTokenRequest);
 }
