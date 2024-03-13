@@ -1,6 +1,7 @@
 package com.spabooking.controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,5 +23,9 @@ public class CategoryController {
 	@PostMapping("/admin/category/add")
 	public ResponseEntity<?> create(@RequestBody CategoryDao dto){
 		return ResponseEntity.ok(new ResponseDTO(true,"success",categoryService.createCategory(dto)));
+	}
+	@GetMapping("/category/list")
+	public ResponseEntity<?> listCategories(){
+		return ResponseEntity.ok(new ResponseDTO(true,"success",categoryService.findAll()));
 	}
 }

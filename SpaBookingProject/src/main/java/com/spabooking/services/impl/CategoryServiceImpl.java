@@ -1,5 +1,6 @@
 package com.spabooking.services.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
@@ -10,26 +11,37 @@ import com.spabooking.exception.AppException;
 import com.spabooking.repository.CategoryRepository;
 import com.spabooking.services.CategoryService;
 
-
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class CategoryServiceImpl implements CategoryService{
+public class CategoryServiceImpl implements CategoryService {
 	private final CategoryRepository categoryRepository;
-	
+
 	private final ModelMapper modelMapper;
-	
+
 	public Category createCategory(CategoryDao dto) {
-		
+
 		List<?> found = categoryRepository.findByNameIgnoreCase(dto.getName());
-		
+
 		if (found.size() > 0) {
 			throw new AppException("Category name is existed!!!");
 		}
 		Category category = new Category();
-		
-		category = modelMapper.map(dto , Category.class);
-		return categoryRepository.save(category);		
+
+		category = modelMapper.map(dto, Category.class);
+		return categoryRepository.save(category);
+	}
+
+	public List<CategoryDao> findAll() {
+		List<Category> categorys = categoryRepository.findAll();
+		List<CategoryDao> categoryDaos = new ArrayList<>();
+
+		for (Category category : categorys) {
+			CategoryDao categoryResp = new CategoryDao();
+			categoryResp = modelMapper.map(category, CategoryDao.class);
+			categoryDaos.add(categoryResp);
+		}
+		return categoryDaos;
 	}
 }
